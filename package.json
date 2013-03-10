@@ -1,0 +1,13 @@
+{
+    "root": "arale",
+    "name": "events",
+    "version": "1.0.0",
+    "description": "提供事件模拟",
+    "tag": "infrastructure",
+    "dependencies": {
+        "$": "gallery/jquery/1.7.2/jquery"
+    },
+    "output": {
+        "event-simulate.js": "."
+    }
+}
