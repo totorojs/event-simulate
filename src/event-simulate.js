@@ -21,7 +21,7 @@ define(function(require, exports) {
           return toString.call(o) === '[object Boolean]';
       },
       isObject = function (o) {
-          return toString.call(o) === '[object Object]';
+          return o === Object(o);
       },
       isNumber = function (o) {
           return toString.call(o) === '[object Number]'
@@ -914,7 +914,7 @@ define(function(require, exports) {
      * @method simulate
      * @static
      */
-    export.simulate = function(target, type, options) {
+    exports.simulate = function(target, type, options) {
     
         options = options || {};
     
