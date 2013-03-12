@@ -374,79 +374,60 @@ define(function(require) {
             var click, dblclick, mousedown, mouseup;
             before(function() {
                 click = new MouseButtonEventTestCase("click");
-                dblclick = new MouseButtonEventTestCase("dblclick");
+                //dblclick = new MouseButtonEventTestCase("dblclick");
                 mousedown = new MouseButtonEventTestCase("mousedown");
                 mouseup = new MouseButtonEventTestCase("mouseup");
             });
+
+            function executeTest(type) {
+               type.init();
+               type.testDefault();
+               type.testRightBtn();
+               type.testCoords();
+               type.testCtrlKey();
+               type.testAltKey();
+               type.testShiftKey();
+               type.testMetaKey();
+            }
   
             it('test click', function(done) {
-                click.init();
-                click.testDefault();
-                click.testRightBtn();
-                click.testCoords();
-                click.testCtrlKey();
-                click.testAltKey();
-                click.testShiftKey();
-                click.testMetaKey();
-  
-                setTimeout(function() {
-                    done(); 
-                }, 1000);
+               executeTest(click);
+               setTimeout(function() {
+                   click.destory();
+                   done(); 
+                }, 200);
             });
   
+            /**
             it('test dbclick', function(done) {
-                dblclick.init();
-                dblclick.testDefault();
-                dblclick.testRightBtn();
-                dblclick.testCoords();
-                dblclick.testCtrlKey();
-                dblclick.testAltKey();
-                dblclick.testShiftKey();
-                dblclick.testMetaKey();
-  
+                executeTest(dblclick);  
                 setTimeout(function() {
+                    dblclick.destory();
                     done(); 
                 }, 1000);
             });
+            **/
   
             it('test moduedown', function(done) {
-                mousedown.init();
-                mousedown.testDefault();
-                mousedown.testRightBtn();
-                mousedown.testCoords();
-                mousedown.testCtrlKey();
-                mousedown.testAltKey();
-                mousedown.testShiftKey();
-                mousedown.testMetaKey();
-  
+                executeTest(mousedown);  
                 setTimeout(function() {
                     done(); 
-                }, 1000);
-  
+                }, 100);
             });
   
             it('test mouseup', function(done) {
-                mouseup.init();
-                mouseup.testDefault();
-                mouseup.testRightBtn();
-                mouseup.testCoords();
-                mouseup.testCtrlKey();
-                mouseup.testAltKey();
-                mouseup.testShiftKey();
-                mouseup.testMetaKey();
-  
+                executeTest(mouseup);  
                 setTimeout(function() {
                     done(); 
-                }, 1000);
+                }, 100);
   
             });
   
-  
             after(function() {
-              click.destory();
-              dbclick.destory();
-              mousedown.destory();
-              mouseup.destory();
+               //click.destory(); 
+               //dblclick.destory();
+               //mousedown.destory();
+               //mouseup.destory();
             });
         });
   
@@ -514,125 +495,123 @@ define(function(require) {
             });
         });
   
-        describe('KeyEventTestCase', function() {
-            //-------------------------------------------------------------------------
-            // KeyEvent Test Case
-            //-------------------------------------------------------------------------
-            KeyEventTestCase = function(type /*:String*/) {
-                KeyEventTestCase.superclass.call(this,type);
-            }
+        //-------------------------------------------------------------------------
+        // KeyEvent Test Case
+        //-------------------------------------------------------------------------
+        var KeyEventTestCase = function(type /*:String*/) {
+            KeyEventTestCase.superclass.call(this,type);
+        }
   
-            inherit(KeyEventTestCase, GenericEventTestCase, {
+        inherit(KeyEventTestCase, GenericEventTestCase, {
+        
+            /*
+             * Tests that the default properties are correct.
+             */
+            testDefault : function () /*:Void*/{
             
-                /*
-                 * Tests that the default properties are correct.
-                 */
-                testDefault : function () /*:Void*/{
+                //fire the click event
+                simulate(this.element, this.eventType);
+                var result = this.result;
+      
+  
+                //test the data coming back
+                expect(result).to.be.an('object');
+                expect(result.target || result.srcElement).to.be(this.element);
+                expect(result.type).to.eql(this.eventType);
+                expect(result.bubbles).to.be.ok();
+                expect(result.cancelable).to.be.ok();
+  
+                expect(result.ctrlKey).to.not.be.ok();
+                expect(result.altKey).to.not.be.ok();
+                expect(result.shiftKey).to.not.be.ok();
+                expect(result.metaKey).to.not.be.ok();
+            },
+            
+            /*
+             * Tests UserAction.click() when using CTRL key.
+             */
+            testCtrlKey : function () /*:Void*/{        
                 
-                    //fire the click event
-                    simulate(this.element, this.eventType);
-                    var result = this.result;
-      
+                //fire the click event
+                simulate(this.element, this.eventType, { ctrlKey: true });
+                var result = this.result;
   
-                    //test the data coming back
-                    expect(result).to.be.an('object');
-                    expect(result.target || result.srcElement).to.be(this.element);
-                    expect(result.type).to.eql(this.eventType);
-                    expect(result.bubbles).to.be.ok();
-                    expect(result.cancelable).to.be.ok();
+                // test the data coming back
+                expect(result).to.be.an('object');
+                expect(result.target || result.srcElement).to.be(this.element);
+                expect(result.type).to.eql(this.eventType);
+                expect(result.bubbles).to.be.ok();
+                expect(result.cancelable).to.be.ok();
   
-                    expect(result.ctrlKey).to.not.be.ok();
-                    expect(result.altKey).to.not.be.ok();
-                    expect(result.shiftKey).to.not.be.ok();
-                    expect(result.metaKey).to.not.be.ok();
-                },
+                expect(result.ctrlKey).to.be.ok();
+                expect(result.altKey).to.not.be.ok();
+                expect(result.shiftKey).to.not.be.ok();
+                expect(result.metaKey).to.not.be.ok();
+            }, 
+            /*
+             * Tests when using ALT key.
+             */
+            testAltKey : function () /*:Void*/{        
                 
-                /*
-                 * Tests UserAction.click() when using CTRL key.
-                 */
-                testCtrlKey : function () /*:Void*/{        
-                    
-                    //fire the click event
-                    simulate(this.element, this.eventType, { ctrlKey: true });
-                    var result = this.result;
-  
-                    // test the data coming back
-                    expect(result).to.be.an('object');
-                    expect(result.target || result.srcElement).to.be(this.element);
-                    expect(result.type).to.eql(this.eventType);
-                    expect(result.bubbles).to.be.ok();
-                    expect(result.cancelable).to.be.ok();
-  
-                    expect(result.ctrlKey).to.be.ok();
-                    expect(result.altKey).to.not.be.ok();
-                    expect(result.shiftKey).to.not.be.ok();
-                    expect(result.metaKey).to.not.be.ok();
-                }, 
-                /*
-                 * Tests when using ALT key.
-                 */
-                testAltKey : function () /*:Void*/{        
-                    
-                    //fire the click event
-                    simulate(this.element, this.eventType, { altKey: true });
-                    var result = this.result;
+                //fire the click event
+                simulate(this.element, this.eventType, { altKey: true });
+                var result = this.result;
       
-                    //test the data coming back
-                    expect(result).to.be.an('object');
-                    expect(result.target || result.srcElement).to.be(this.element);
-                    expect(result.type).to.eql(this.eventType);
-                    expect(result.bubbles).to.be.ok();
-                    expect(result.cancelable).to.be.ok();
+                //test the data coming back
+                expect(result).to.be.an('object');
+                expect(result.target || result.srcElement).to.be(this.element);
+                expect(result.type).to.eql(this.eventType);
+                expect(result.bubbles).to.be.ok();
+                expect(result.cancelable).to.be.ok();
   
-                    expect(result.ctrlKey).to.not.be.ok();
-                    expect(result.altKey).to.be.ok();
-                    expect(result.shiftKey).to.not.be.ok();
-                    expect(result.metaKey).to.not.be.ok();
-                }, 
-                /*
-                 * Tests when using Shift key.
-                 */
-                testShiftKey : function () /*:Void*/{        
-                    
-                    //fire the click event
-                    simulate(this.element, this.eventType, { shiftKey: true });
-                    var result = this.result;
-      
-                    //test the data coming back
-                    expect(result).to.be.an('object');
-                    expect(result.target || result.srcElement).to.be(this.element);
-                    expect(result.type).to.eql(this.eventType);
-                    expect(result.bubbles).to.be.ok();
-                    expect(result.cancelable).to.be.ok();
-  
-                    expect(result.ctrlKey).to.not.be.ok();
-                    expect(result.altKey).to.not.be.ok();
-                    expect(result.shiftKey).to.be.ok();
-                    expect(result.metaKey).to.not.be.ok();
-                },
+                expect(result.ctrlKey).to.not.be.ok();
+                expect(result.altKey).to.be.ok();
+                expect(result.shiftKey).to.not.be.ok();
+                expect(result.metaKey).to.not.be.ok();
+            }, 
+            /*
+             * Tests when using Shift key.
+             */
+            testShiftKey : function () /*:Void*/{        
                 
-                /*
-                 * Tests when using Meta key.
-                 */
-                testMetaKey : function () /*:Void*/{        
-                    
-                    //fire the click event
-                    simulate(this.element, this.eventType, { metaKey: true });
-                    var result = this.result;
+                //fire the click event
+                simulate(this.element, this.eventType, { shiftKey: true });
+                var result = this.result;
       
-                    //test the data coming back
-                    expect(result).to.be.an('object');
-                    expect(result.target || result.srcElement).to.be(this.element);
-                    expect(result.type).to.eql(this.eventType);
-                    expect(result.bubbles).to.be.ok();
-                    expect(result.cancelable).to.be.ok();
+                //test the data coming back
+                expect(result).to.be.an('object');
+                expect(result.target || result.srcElement).to.be(this.element);
+                expect(result.type).to.eql(this.eventType);
+                expect(result.bubbles).to.be.ok();
+                expect(result.cancelable).to.be.ok();
   
-                    expect(result.ctrlKey).to.not.be.ok();
-                    expect(result.altKey).to.not.be.ok();
-                    expect(result.shiftKey).to.not.be.ok();
-                    expect(result.metaKey).to.be.ok();
-                }            
-            });
+                expect(result.ctrlKey).to.not.be.ok();
+                expect(result.altKey).to.not.be.ok();
+                expect(result.shiftKey).to.be.ok();
+                expect(result.metaKey).to.not.be.ok();
+            },
+            
+            /*
+             * Tests when using Meta key.
+             */
+            testMetaKey : function () /*:Void*/{        
+                
+                //fire the click event
+                simulate(this.element, this.eventType, { metaKey: true });
+                var result = this.result;
+      
+                //test the data coming back
+                expect(result).to.be.an('object');
+                expect(result.target || result.srcElement).to.be(this.element);
+                expect(result.type).to.eql(this.eventType);
+                expect(result.bubbles).to.be.ok();
+                expect(result.cancelable).to.be.ok();
+  
+                expect(result.ctrlKey).to.not.be.ok();
+                expect(result.altKey).to.not.be.ok();
+                expect(result.shiftKey).to.not.be.ok();
+                expect(result.metaKey).to.be.ok();
+            }            
         });
   
         describe('KeyDirectionEventTestCase', function() {
@@ -687,7 +666,7 @@ define(function(require) {
   
             it('test keydown', function(done) {
                 keydown.init();
-                keydown.testKeyCode();
+                //keydown.testKeyCode();
                 setTimeout(function() {
                     done();
                 }, 100);
