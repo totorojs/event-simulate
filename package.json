@@ -1,6 +1,6 @@
 {
     "root": "arale",
-    "name": "events",
+    "name": "event-simulate",
     "version": "1.0.0",
     "description": "提供事件模拟",
     "tag": "infrastructure",

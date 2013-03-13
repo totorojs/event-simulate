@@ -2,7 +2,7 @@
  * 模拟事件
  * @refer https://github.com/yui/yui3/raw/master/src/event-simulate/js/event-simulate.js
  */
-define("arale/events/1.0.0/event-simulate-debug", [ "gallery/jquery/1.7.2/jquery-debug" ], function(require, exports) {
+define("arale/event-simulate/1.0.0/event-simulate-debug", [ "gallery/jquery/1.7.2/jquery-debug" ], function(require, exports) {
     "use strict";
     var $ = require("gallery/jquery/1.7.2/jquery-debug"), UA = $.browser;
     // shortcuts
@@ -13,7 +13,7 @@ define("arale/events/1.0.0/event-simulate-debug", [ "gallery/jquery/1.7.2/jquery
     }, isBoolean = function(o) {
         return toString.call(o) === "[object Boolean]";
     }, isObject = function(o) {
-        return toString.call(o) === "[object Object]";
+        return o === Object(o);
     }, isNumber = function(o) {
         return toString.call(o) === "[object Number]";
     }, doc = document, win = window, mix = function(r, s) {
@@ -831,7 +831,7 @@ define("arale/events/1.0.0/event-simulate-debug", [ "gallery/jquery/1.7.2/jquery
      * @method simulate
      * @static
      */
-    export.simulate = function(target, type, options) {
+    exports.simulate = function(target, type, options) {
         options = options || {};
         if (mouseEvents[type] || msPointerEvents[type]) {
             simulateMouseEvent(target, type, options.bubbles, options.cancelable, options.view, options.detail, options.screenX, options.screenY, options.clientX, options.clientY, options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, options.button, options.relatedTarget);

@@ -177,7 +177,7 @@ define(function(require) {
               blur.testDefault();
               setTimeout(function() {
                   done();
-              });
+              }, 50);
             });
   
             it('test focus', function(done) {
@@ -185,7 +185,7 @@ define(function(require) {
               focus.testDefault();
               setTimeout(function() {
                   done();
-              });
+              }, 50);
             });
   
             after(function() {
@@ -374,7 +374,7 @@ define(function(require) {
             var click, dblclick, mousedown, mouseup;
             before(function() {
                 click = new MouseButtonEventTestCase("click");
-                //dblclick = new MouseButtonEventTestCase("dblclick");
+                dblclick = new MouseButtonEventTestCase("dblclick");
                 mousedown = new MouseButtonEventTestCase("mousedown");
                 mouseup = new MouseButtonEventTestCase("mouseup");
             });
@@ -395,39 +395,32 @@ define(function(require) {
                setTimeout(function() {
                    click.destory();
                    done(); 
-                }, 200);
+                }, 50);
             });
   
-            /**
             it('test dbclick', function(done) {
                 executeTest(dblclick);  
                 setTimeout(function() {
                     dblclick.destory();
                     done(); 
-                }, 1000);
+                }, 50);
             });
-            **/
   
             it('test moduedown', function(done) {
                 executeTest(mousedown);  
                 setTimeout(function() {
+                    mousedown.destory();
                     done(); 
-                }, 100);
+                }, 50);
             });
   
             it('test mouseup', function(done) {
                 executeTest(mouseup);  
                 setTimeout(function() {
+                    mouseup.destory();
                     done(); 
-                }, 100);
+                }, 50);
   
-            });
-  
-            after(function() {
-               //click.destory(); 
-               //dblclick.destory();
-               //mousedown.destory();
-               //mouseup.destory();
             });
         });
   
@@ -478,7 +471,7 @@ define(function(require) {
                 mouseover.testRelatedTarget();
                 setTimeout(function() {
                     done(); 
-                }, 100);
+                }, 50);
             });
   
             it('test mouseout', function(done) {
@@ -486,7 +479,7 @@ define(function(require) {
                 mouseout.testRelatedTarget();
                 setTimeout(function() {
                     done(); 
-                }, 100);
+                }, 50);
             });
   
             after(function() {
@@ -655,28 +648,27 @@ define(function(require) {
                 keyup = new KeyDirectionEventTestCase("keyup");
                 keydown = new KeyDirectionEventTestCase("keydown");
             });
+
+            function executeTest(type) {
+               type.init();
+               type.testKeyCode();
+            }
   
             it('test keyup', function(done) {
-                keyup.init();
-                keyup.testKeyCode();
+                //executeTest(keyup);
                 setTimeout(function() {
+                    //keyup.destory();
                     done();
-                }, 100);
+                }, 50);
             });
   
             it('test keydown', function(done) {
-                keydown.init();
-                //keydown.testKeyCode();
+                //executeTest(keydown);
                 setTimeout(function() {
+                    //keydown.destory();
                     done();
-                }, 100);
+                }, 50);
             });
-  
-            after(function() {
-                keyup.destory();
-                keydown.destory();
-            });
-          
         });
   
         describe('TextEventTestCase', function() {
@@ -724,7 +716,7 @@ define(function(require) {
                 keypress.testCharCode();
                 setTimeout(function() {
                     done();
-                });
+                }, 50);
             });
   
             after(function() {
