@@ -22,7 +22,7 @@ eventSimulate.simulate(div, 'click');
 
 该模块仅提供一个方法：
 
-**simulate  `eventSimulate.simulate(element, eventType, [options])`**
+**eventSimulate.simulate(element, eventType, [options])**
 
 ### element
 
