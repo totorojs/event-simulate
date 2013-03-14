@@ -2,7 +2,7 @@
 
 ---
 
-通过生成原生的 dom 事件模拟用户的交互
+模拟事件各种鼠标、键盘事件触发。
 
 ---
 
@@ -14,19 +14,22 @@ var div = document.createElement('div);
 document.body.appendChild(div);
 eventSimulate.simulate(div, 'click');
 ```
+
 上面表明了创建了一个 div 元素，并在上面触发了一个 click 事件。
 
 
-### simulate  `eventSimulate.simulate(element, eventType, [options])`
+## API
 
-在指定的元素上触发相应的事件。
+该模块仅提供一个方法：
 
-options 可以增加额外的配置，下面会详细说明 options 的设置。
+**simulate  `eventSimulate.simulate(element, eventType, [options])`**
 
 ### element
+
 可以是 jquery 对象和原生的 dom 对象。
 
 ### eventType
+
 事件类型。
 主要支持以下几几大类和若干小类:
 
