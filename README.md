@@ -23,6 +23,50 @@ eventSimulate.simulate(div, 'click');
 
 options 可以增加额外的配置，下面会详细说明 options 的设置。
 
+### element
+可以是 jquery 对象和原生的 dom 对象。
+
+### eventType
+事件类型。
+主要支持以下几几大类和若干小类:
+
+#### UIEvents
+* submit
+* blur
+* change
+* focus
+* resize
+* scroll
+* select
+
+#### MouseEvents
+* click
+* dblclick
+* mouseover
+* mouseout
+* mouseenter
+* mouseleave
+* mousedown
+* mouseup
+* mousemove
+
+#### msPointerEvents
+* MSPointerOver
+* MSPointerOut
+* MSPointerDown
+* MSPointerUp
+* MSPointerMove
+
+#### touchEvents
+* touchstart
+* touchmove
+* touchend
+* touchcancel
+
+#### gestureEvents
+* gesturestart
+* gesturechange
+* gestureend
 
 ### options 
 事件参数对象，其实这个里面设置的内容就是用户获取事件对象中对应的内容。

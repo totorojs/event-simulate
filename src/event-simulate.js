@@ -915,6 +915,9 @@ define(function(require, exports) {
      * @static
      */
     exports.simulate = function(target, type, options) {
+        if (target[0]) {
+            target = target[0];
+        }
     
         options = options || {};
     
