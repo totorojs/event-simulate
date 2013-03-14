@@ -17,12 +17,10 @@ eventSimulate.simulate(div, 'click');
 
 上面表明了创建了一个 div 元素，并在上面触发了一个 click 事件。
 
+该模块仅提供一个方法，以下为 API 详解。
 
-## API
 
-该模块仅提供一个方法：
-
-**eventSimulate.simulate(element, eventType, [options])**
+### eventSimulate.simulate(element, eventType, [options])
 
 ### element
 
