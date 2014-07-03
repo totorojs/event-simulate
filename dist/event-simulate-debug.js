@@ -2,9 +2,9 @@
  * 模拟事件
  * @refer https://github.com/yui/yui3/raw/master/src/event-simulate/js/event-simulate.js
  */
-define("arale/event-simulate/1.0.0/event-simulate-debug", [ "gallery/jquery/1.7.2/jquery-debug" ], function(require, exports) {
+define("gallery/event-simulate/1.0.0/event-simulate-debug", [ "$-debug" ], function(require, exports) {
     "use strict";
-    var $ = require("gallery/jquery/1.7.2/jquery-debug"), UA = $.browser;
+    var $ = require("$-debug"), UA = $.browser;
     // shortcuts
     var toString = Object.prototype.toString, isFunction = function(o) {
         return toString.call(o) === "[object Function]";
@@ -832,6 +832,9 @@ define("arale/event-simulate/1.0.0/event-simulate-debug", [ "gallery/jquery/1.7.
      * @static
      */
     exports.simulate = function(target, type, options) {
+        if (target[0]) {
+            target = target[0];
+        }
         options = options || {};
         if (mouseEvents[type] || msPointerEvents[type]) {
             simulateMouseEvent(target, type, options.bubbles, options.cancelable, options.view, options.detail, options.screenX, options.screenY, options.clientX, options.clientY, options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, options.button, options.relatedTarget);

@@ -1,13 +1,15 @@
 {
-    "root": "arale",
+    "family": "gallery",
     "name": "event-simulate",
     "version": "1.0.0",
-    "description": "提供事件模拟",
+    "package": "https://github.com/totorojs/event-simulate/blob/master/package.json",
+    "description": "Event simulate",
     "tag": "infrastructure",
-    "dependencies": {
-        "$": "gallery/jquery/1.7.2/jquery"
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/totorojs/event-simulate"
     },
-    "output": {
-        "event-simulate.js": "."
+    "spm": {
+      "output": [ "event-simulate.js" ]
     }
 }
